@@ -14,7 +14,12 @@ export default defineConfig({
   reporter: 'html',
   use: {
     browserName: 'chromium',
-    headless: false
+    headless: false,
+    launchOptions: {
+      args: ['--start-maximized'], // 1. Start browser maximized
+    },
+    viewport: null,
   },
+  
 });
 
