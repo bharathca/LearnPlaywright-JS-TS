@@ -57,7 +57,7 @@ test("Learn UI Controls", async ({page}) => {
     await page.pause();
 })
 
-test.only("ChildWindow Handling", async ({browser}) => {
+test("ChildWindow Handling", async ({browser}) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
