@@ -35,7 +35,6 @@ test.only("End To End Automation Client Application", async ({page}) => {
     await page.waitForLoadState("networkidle"); //sometime this works 
     await productsLocator.last().waitFor();
     for(let i = 0;i<await listOfProductDetailsLocator.count();++i) {
-        console.log (await listOfProductDetailsLocator.nth(i).textContent())
         if(await listOfProductDetailsLocator.nth(i).textContent() === productToChoose) {
             await productsLocator.nth(i).locator("text= Add To Cart").click();
             break;
@@ -54,11 +53,7 @@ test.only("End To End Automation Client Application", async ({page}) => {
     
     if(paymentMethods.length === paymentMethodCount) {
         for(let i = 0;i<paymentMethodCount;++i) {
-            console.log(paymentMethods[i])
-            console.log(await paymentMethodInPage.nth(i).textContent())
-            if(paymentMethods[i]=== await paymentMethodInPage.nth(i).textContent()) {
-                console.log("true");
-            }
+            await expect(await paymentMethodInPage.nth(i).textContent()).toEqual(paymentMethods[i]);
         }
     }
     await page.locator('.field:has(.title:has-text("Credit Card Number")) input').fill('4542 9931 9292 2407');
@@ -83,9 +78,7 @@ test.only("End To End Automation Client Application", async ({page}) => {
     await countryDropDownLocator.waitFor();
     const countryDropDownOptionsLocator = await countryDropDownLocator.locator(".ta-item");
     const countryDropDownCount = await countryDropDownOptionsLocator.count();
-    console.log(countryDropDownCount);
     for(let i =0; i<countryDropDownCount;++i) {
-        console.log(await countryDropDownOptionsLocator.nth(i).textContent());
         if(await countryDropDownOptionsLocator.nth(i).textContent() === " India") {
             await countryDropDownOptionsLocator.nth(i).click();
             break;
@@ -96,10 +89,9 @@ test.only("End To End Automation Client Application", async ({page}) => {
     await expect(await page.locator(".hero-primary")).toHaveText("Thankyou for the order. ");
     const orderId = await page.locator("label.ng-star-inserted").textContent();
     await page.locator("button[routerlink='/dashboard/myorders']").click();
-console.log(orderId);
-const actualOrderID = orderId.split('|')[1].trim();
-console.log(actualOrderID);
-// await page.locator("tbody").waitFor();
+    const actualOrderID = orderId.split('|')[1].trim();
+    
+    
     const orderListRows = await page.locator("tbody tr");
     await orderListRows.last().waitFor();
     for (let i = 0 ; i<await orderListRows.count();++i) {
@@ -110,5 +102,7 @@ console.log(actualOrderID);
             break;
         }
     }
-    await page.pause();
+
+    const extractOrderId = await page.locator(".col-title:has-text('Order Id')").locator("..").locator(".col-text").textContent();
+    await expect(extractOrderId).toEqual(actualOrderID);
 });
