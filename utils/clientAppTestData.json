@@ -1,0 +1,13 @@
+[{
+    "userName": "dhamaka@gmail.com",
+    "password": "Dhamaka@123",
+    "productToChoose": "iphone 13 pro",
+    "creditCardNumber": "4542 9931 9292 2407",
+    "creditCardExpiry": "10/12",
+    "creditCardCVV": "344",
+    "creditCardHolderName": "Dhamaka",
+    "couponCode": "rahulshettyacademy",
+    "countrySequence" : "ind",
+    "country": "India",
+    "paymentMethods": ["Credit Card", "Paypal", "SEPA", "Invoice"]
+}]
