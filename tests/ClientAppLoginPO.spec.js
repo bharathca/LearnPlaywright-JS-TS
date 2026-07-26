@@ -41,9 +41,12 @@ for (const data of testData)
         }
 
         checkOutPage.fillOutCreditCardDetails(data);
+        checkOutPage.applyCouponCode(data);
+        await expect(checkOutPage.getUserEmail()).toHaveText(userName)
+        checkOutPage.placeOrder();
         
-        await expect(page.locator(".user__name [type='text']").first()).toHaveText(userName);
-        await page.locator(".action__submit").click();
+        // await expect(page.locator(".user__name [type='text']").first()).toHaveText(userName);
+        
         await expect(await page.locator(".hero-primary")).toHaveText("Thankyou for the order. ");
         const orderId = await page.locator("label.ng-star-inserted").textContent();
         await page.locator("button[routerlink='/dashboard/myorders']").click();

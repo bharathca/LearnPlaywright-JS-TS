@@ -21,13 +21,14 @@ class ClientAppAPIUtility {
         //OrderFlow
         const orderResponse = await this.apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order", {
             ignoreHTTPSErrors: true,
-            data: this.orderPayload,
+            data: orderPayload,
             headers: {
                 'Authorization': response.token,
                 'Content-Type': 'application/json'
             }
         });
         const orderResponseInJson = await orderResponse.json();
+        console.log(orderResponseInJson)
         response.orderId = orderResponseInJson.orders[0];
         return response;
     }
