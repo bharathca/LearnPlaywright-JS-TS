@@ -9,7 +9,8 @@ class ThankYouPage {
         return await this.thankYouText.textContent();
     }
     async getOrderID() {
-        return this.orderID.textContent().split('|')[1].trim();
+        const getOrderID = await this.orderID.textContent();
+        return getOrderID.split('|')[1].trim();
     }
     async goToOrdersPage() {
         await this.myOrdersPageLink.click();

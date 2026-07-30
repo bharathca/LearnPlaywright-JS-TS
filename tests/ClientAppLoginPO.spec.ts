@@ -1,5 +1,7 @@
-const { test, expect } = require('@playwright/test');
-const { POManager } = require('../pageObjects_js/POManager');
+import { Locator, Page, expect, test } from "@playwright/test";
+import { POManager } from "../pageObjects_ts/POManager";
+
+
 const testData = JSON.parse(JSON.stringify(require("../utils/clientAppTestData.json")))
 
 for (const data of testData)
@@ -27,13 +29,13 @@ for (const data of testData)
         await cartPo.checkOutPage();
 
         const checkOutPage = poManager.getCheckOutPage();
-        const paymentMethodsFromPage = checkOutPage.getCurrentPaymentMethods();
+        const paymentMethodsFromPage = await checkOutPage.getCurrentPaymentMethods();
 
-        const paymentMethodCount = await paymentMethodsFromPage.length;
+        const paymentMethodCount = paymentMethodsFromPage.length;
 
         if (data.paymentMethods.length === paymentMethodCount) {
             for (let i = 0; i < paymentMethodCount; ++i) {
-                await expect(await paymentMethodsFromPage.nth(i).textContent()).toEqual(data.paymentMethods[i]);
+                await expect(paymentMethodsFromPage[i]).toEqual(data.paymentMethods[i]);
             }
         }
 
@@ -50,11 +52,10 @@ for (const data of testData)
         const thankYouText = await thankYouPage.getThankYouText();
 
         await expect(thankYouText).toEqual(data.thankYouText);
-        const actualOrderID = await thankYouPage.getOrderID();
+        const actualOrderID: string | null = await thankYouPage.getOrderID();
+        if (!actualOrderID) throw new Error("Order ID is null or missing");
+
         await thankYouPage.goToOrdersPage();
-
-
-
         const ordersPage = poManager.getOrdersPage();
         await ordersPage.goToOrderDetails(actualOrderID);
         const orderDetailsPage = poManager.getOrderDetailsPage();

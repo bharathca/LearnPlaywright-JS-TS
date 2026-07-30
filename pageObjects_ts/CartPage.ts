@@ -1,4 +1,4 @@
-import {Locator, Page} from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 export class CartPage {
     page: Page;
@@ -9,12 +9,12 @@ export class CartPage {
         this.productText = page.locator(".cartSection h3");
         this.checkOutButton = page.locator("button:has-text('Checkout')");
     }
-    async getProductName() {
+    async getProductName(): Promise<string | null> {
         await this.page.locator("div li").first().waitFor();
         return await this.productText.textContent();
     }
     async checkOutPage() {
         await this.checkOutButton.click();
     }
-    
+
 }

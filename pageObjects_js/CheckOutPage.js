@@ -1,19 +1,19 @@
 class CheckOutPage {
     constructor(page) {
         this.page = page;
-        this.paymentMethodInPage = page.locator(".payment__type");
+        this.paymentMethodInPage = page.locator(".payment__types .payment__type");
         this.emailAddress = page.locator(".user__name input[type = 'text']");
         this.creditCardNumber = page.locator(".field:has(.title:has-text('Credit Card Number')) input")
         this.creditCardExpiry = page.locator(".field:has(.title:has-text('Expiry Date')) select");
         this.creditCardCVV = page.locator(".field:has(.title:has-text('CVV Code')) input");
         this.creditCardHolderName = page.locator(".field:has(.title:has-text('Name on Card')) input");
-        this.discountCoupon = page.locator(".field:has(.title:has-text('Apply Coupon')) input");
+        this.discountCoupon = page.locator("input[name = 'coupon']");
         this.applyDiscount = page.locator("button:has-text('Apply Coupon')");
         this.couponAppliedConfirmation = page.locator(".field:has(.title:has-text('Apply Coupon ')) p")
         this.selectCountry = page.locator(".user__name input[placeholder = 'Select Country']");
         this.listOfCountries = page.locator(".ta-results");
         this.listOfCountriesButton = this.listOfCountries.locator("button")
-        this.placeOrder = page.locator(".action__submit").click();
+        this.placeOrder = page.locator(".action__submit");
     }
     async getUserEmail() {
         return await this.emailAddress.inputValue();
@@ -22,9 +22,8 @@ class CheckOutPage {
         await this.selectCountry.pressSequentially(countryInSequence, { delay: 150 });
         await this.listOfCountries.waitFor();
         const count = await this.listOfCountries.locator('button').count();
-        console.log("Count: " + count);
         for (let i = 0; i < count; i++) {
-            const countryText = await this.listOfCountries.locator('button').nth(i).textContext();
+            const countryText = await this.listOfCountries.locator('button').nth(i).textContent();
             if (countryText === country) {
                 await this.listOfCountries.locator('button').nth(i).click();
                 break;
@@ -42,7 +41,9 @@ class CheckOutPage {
     async applyCouponCode(data) {
         await this.discountCoupon.fill(data.couponCode);
         await this.applyDiscount.click();
-        return await this.couponAppliedConfirmation.textContent();
+    }
+    async getCouponAppliedConfirmationText() {
+        return await this.couponAppliedConfirmation.first().textContent();
     }
 
     async getCurrentPaymentMethods() {

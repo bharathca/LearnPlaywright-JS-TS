@@ -1,4 +1,16 @@
 import { Locator, Page } from "@playwright/test";
+
+type CreditCardData = {
+    creditCardNumber: string;
+    creditCardExpiry: string;
+    creditCardCVV: string;
+    creditCardHolderName: string;
+};
+
+type CouponData = {
+    couponCode: string;
+};
+
 export class CheckOutPage {
     page: Page;
     paymentMethodInPage: Locator;
@@ -30,14 +42,13 @@ export class CheckOutPage {
         this.listOfCountriesButton = this.listOfCountries.locator("button")
         this.placeOrder = page.locator(".action__submit");
     }
-    async getUserEmail() {
+    async getUserEmail(): Promise<string> {
         return await this.emailAddress.inputValue();
     }
     async selectCountryFromDropDown(countryInSequence: string, country: string) {
         await this.selectCountry.pressSequentially(countryInSequence, { delay: 150 });
         await this.listOfCountries.waitFor();
         const count = await this.listOfCountries.locator('button').count();
-        console.log("Count: " + count);
         for (let i = 0; i < count; i++) {
             const countryText = await this.listOfCountries.locator('button').nth(i).textContent();
             if (countryText === country) {
@@ -46,7 +57,7 @@ export class CheckOutPage {
             }
         }
     }
-    async fillOutCreditCardDetails(data) {
+    async fillOutCreditCardDetails(data: CreditCardData) {
         await this.creditCardNumber.fill(data.creditCardNumber);
         await this.creditCardExpiry.first().selectOption(data.creditCardExpiry.split("/")[0]);
         await this.creditCardExpiry.last().selectOption(data.creditCardExpiry.split("/")[1]);
@@ -54,17 +65,21 @@ export class CheckOutPage {
         await this.creditCardHolderName.fill(data.creditCardHolderName);
     }
 
-    async applyCouponCode(data) {
+    async applyCouponCode(data: CouponData): Promise<string | null> {
         await this.discountCoupon.fill(data.couponCode);
         await this.applyDiscount.click();
         return await this.couponAppliedConfirmation.textContent();
     }
 
-    async getCurrentPaymentMethods() {
+    async getCouponAppliedConfirmationText(): Promise<string | null> {
+        return await this.couponAppliedConfirmation.textContent();
+    }
+    
+
+    async getCurrentPaymentMethods(): Promise<Array<string>> {
         return await this.paymentMethodInPage.allTextContents();
     }
     async placeTheOrder() {
         await this.placeOrder.click();
     }
 }
-module.exports = { CheckOutPage };

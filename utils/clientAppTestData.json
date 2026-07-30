@@ -8,6 +8,35 @@
     "creditCardHolderName": "Dhamaka",
     "couponCode": "rahulshettyacademy",
     "countrySequence" : "ind",
-    "country": "India",
-    "paymentMethods": ["Credit Card", "Paypal", "SEPA", "Invoice"]
+    "country": " India",
+    "paymentMethods": ["Credit Card", "Paypal", "SEPA", "Invoice"],
+    "thankYouText" : " Thankyou for the order. "
+},
+{
+    "userName": "dhamaka@gmail.com",
+    "password": "Dhamaka@123",
+    "productToChoose": "ZARA COAT 3",
+    "creditCardNumber": "4542 9931 9292 2409",
+    "creditCardExpiry": "10/12",
+    "creditCardCVV": "344",
+    "creditCardHolderName": "Dhamaka",
+    "couponCode": "rahulshettyacademy",
+    "countrySequence" : "ind",
+    "country": " India",
+    "paymentMethods": ["Credit Card", "Paypal", "SEPA", "Invoice"],
+    "thankYouText" : " Thankyou for the order. "
+},
+{
+    "userName": "dhamaka@gmail.com",
+    "password": "Dhamaka@123",
+    "productToChoose": "ADIDAS ORIGINAL",
+    "creditCardNumber": "4542 9931 9291 2409",
+    "creditCardExpiry": "10/12",
+    "creditCardCVV": "344",
+    "creditCardHolderName": "Dhamaka",
+    "couponCode": "rahulshettyacademy",
+    "countrySequence" : "ind",
+    "country": " India",
+    "paymentMethods": ["Credit Card", "Paypal", "SEPA", "Invoice"],
+    "thankYouText" : " Thankyou for the order. "
 }]
