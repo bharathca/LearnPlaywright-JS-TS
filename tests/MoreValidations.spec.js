@@ -24,7 +24,7 @@ test("Frames", async ({ page }) => {
     console.log(text.split(" ")[1]);
 })
 
-test.only("screenshotAndVisualComparison", async ({page}) => {
+test("screenshotAndVisualComparison", async ({page}) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     await expect(await page.locator("#displayed-text")).toBeVisible();
     await page.locator("#displayed-text").screenshot({path: "partialscreenshot.png"});

@@ -5,7 +5,7 @@ import { POManager } from "../pageObjects_ts/POManager";
 const testData = JSON.parse(JSON.stringify(require("../utils/clientAppTestData.json")))
 
 for (const data of testData)
-    test.only(`client application ${data.productToChoose}`, async ({ page }) => {
+    test(`client application ${data.productToChoose}`, async ({ page }) => {
 
         const userName = data.userName;
         const password = data.password

@@ -4,9 +4,7 @@ const {test, expect} = require('@playwright/test');
 //when await needs to be used then async should be used 
 test('First Playwright test - initial learning',async ({browser}) => {
     //chrome - plugin/cookies
-    
     //newContext - sort of incognito window - no history nothing - no cookies
-    
     //context -> page -> url
     
     const context = await browser.newContext();
@@ -80,10 +78,6 @@ test("ChildWindow Handling", async ({browser}) => {
     console.log(domain)
     await userNameLocator.fill(domain);
     console.log(await userNameLocator.inputValue());//inputvalue is used when we want to take content that is not part of the loaded DOM but the value we entered(fill)
-
-
-
-
 })
 
 test('Page Playwright Test',async ({page}) => {

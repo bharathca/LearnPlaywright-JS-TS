@@ -1,9 +1,10 @@
 const { test, expect } = require('@playwright/test');
 const { POManager } = require('../pageObjects_js/POManager');
 const testData = JSON.parse(JSON.stringify(require("../utils/clientAppTestData.json")))
+const { customTest } = require("../utils/test-base")
 
 for (const data of testData)
-    test.only(`client application ${data.productToChoose}`, async ({ page }) => {
+    test(`client application ${data.productToChoose}`, async ({ page }) => {
 
         const userName = data.userName;
         const password = data.password
@@ -60,3 +61,16 @@ for (const data of testData)
         const orderDetailsPage = poManager.getOrderDetailsPage();
         await expect(await orderDetailsPage.getOrderID()).toEqual(actualOrderID);
     });
+customTest(`client application login`, async ({ page, orderTestData }) => {
+
+    const userName = orderTestData.userName;
+    const password = orderTestData.password
+    const productToChoose = orderTestData.productToChoose;
+
+    const poManager = new POManager(page);
+    const loginPage = poManager.getLoginPage();
+
+    await loginPage.hitPageUrl();
+    await expect(page).toHaveTitle("Let's Shop");
+    await loginPage.validLogin(userName, password);
+});
