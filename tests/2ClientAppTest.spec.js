@@ -1,11 +1,11 @@
 const { test, expect } = require('@playwright/test');
 
-test("Client Login Proctise", async ({ browser }) => {
+test("Client Login Practice", async ({ browser }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const downloadLink = await page.locator("a[href*='documents-request']");
-    await expect(downloadLink).toHaveAttribute("class","blinkingText");
+    await expect(downloadLink).toHaveAttribute("class", "blinkingText");
 
     const [newPage] = await Promise.all([
         context.waitForEvent('page'),
@@ -16,7 +16,7 @@ test("Client Login Proctise", async ({ browser }) => {
     const splitContent = text.split("@")[1];
     const domain = splitContent.split(" ")[0]
     console.log(domain)
-    
+
 })
 test("Another Example Product Collection", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
@@ -217,8 +217,9 @@ test("End To End Automation Client Application with getByLocators", async ({ pag
     await expect(extractOrderId).toEqual(actualOrderID);
 });
 
-test("End To End Automation Client Application with Playwright getByLocators", async ({page}) => {
-    
+//npx playwright test --grep @Web
+test(`@Web End To End Automation Client Application with Playwright getByLocators`, async ({ page }) => {
+
     await page.goto("https://rahulshettyacademy.com/client/#/auth/login");
     const email = "dhamaka@gmail.com";
     const password = "Dhamaka@123";
@@ -232,13 +233,10 @@ test("End To End Automation Client Application with Playwright getByLocators", a
 
     const emailLocator = page.getByPlaceholder("email@example.com")
     const passwordLocator = page.getByPlaceholder("enter your passsword");
-    const loginLocator = page.getByRole('button', {name: 'Login'});
-
+    const loginLocator = page.getByRole('button', { name: 'Login' });
 
     await expect(page).toHaveTitle("Let's Shop");
 
-    
-    
     await emailLocator.fill(email);
     await passwordLocator.fill(password);
     await loginLocator.click();
@@ -246,24 +244,23 @@ test("End To End Automation Client Application with Playwright getByLocators", a
     const productsLocator = page.locator(".card-body")
 
     const listOfProductDetailsLocator = productsLocator.locator("b");
-    
+
     await page.waitForLoadState("networkidle"); //sometime this works 
     await productsLocator.last().waitFor();
 
-    await productsLocator.filter({hasText:productToChoose}).getByRole('button', {name:' Add To Cart'}).click();
+    await productsLocator.filter({ hasText: productToChoose }).getByRole('button', { name: ' Add To Cart' }).click();
 
-    await page.getByRole("listitem").getByRole("button", {name: 'Cart'}).click();
-    
+    await page.getByRole("listitem").getByRole("button", { name: 'Cart' }).click();
+
     await page.locator(".cart li").first().waitFor();
-    
+
     const bool = await page.getByText(productToChoose).isVisible();
     expect(bool).toBeTruthy();
 
-    await page.getByRole("button", {name: "Checkout"}).click();
-    
+    await page.getByRole("button", { name: "Checkout" }).click();
+
     const paymentMethods = ['Credit Card', 'Paypal', 'SEPA', 'Invoice'];
     await expect(page.locator(".payment__type")).toHaveText(paymentMethods);
-
 
     await page.locator('.field:has(.title:has-text("Credit Card Number")) input').fill(creditCardNumber);
 
@@ -277,33 +274,29 @@ test("End To End Automation Client Application with Playwright getByLocators", a
 
     await page.locator('.field:has(.title:has-text("Apply Coupon")) input').fill(discountCoupon);
 
-    await page.getByRole('button', {name: 'Apply Coupon'}).click();
+    await page.getByRole('button', { name: 'Apply Coupon' }).click();
 
-    await expect(page.getByText("Coupon Applied")).toBeVisible();    
+    await expect(page.getByText("Coupon Applied")).toBeVisible();
 
     await expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
 
     await page.getByPlaceholder("Select Country").pressSequentially("ind", { delay: 500 });
-    
-    await page.getByRole('button', {name:' India'}).nth(1).click();
-    
+
+    await page.getByRole('button', { name: ' India' }).nth(1).click();
+
     await page.getByText("Place Order").click();
 
     await expect(await page.locator(".hero-primary")).toHaveText("Thankyou for the order. ");
     await expect(await page.getByText(" Thankyou for the order. ")).toBeVisible();
-    
+
     const orderId = await page.locator("label.ng-star-inserted").textContent();
     const actualOrderID = orderId.split('|')[1].trim();
 
-    
     await page.getByText("Orders History Page").click();
-    
-    
-    
+
     const orderListRows = await page.locator("tbody tr");
     await orderListRows.last().waitFor();
-    await page.getByText(actualOrderID).locator("..").getByRole('button', {name: 'View'}).click();
-    
+    await page.getByText(actualOrderID).locator("..").getByRole('button', { name: 'View' }).click();
 
     const extractOrderId = await page.locator(".col-title:has-text('Order Id')").locator("..").locator(".col-text").textContent();
     await expect(extractOrderId).toEqual(actualOrderID);

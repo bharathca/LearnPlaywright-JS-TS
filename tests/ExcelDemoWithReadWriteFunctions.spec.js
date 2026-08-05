@@ -32,7 +32,7 @@ async function readExcel(workSheet, searchText) {
     return output;
 }
 
-test('Download and Upload Funcationality Test', async ({ page }) => {
+test('Download and Upload Functionality Test', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/upload-download-test/index.html");
     const waitForDownload = page.waitForEvent("download");
     await page.locator("#downloadButton").click();

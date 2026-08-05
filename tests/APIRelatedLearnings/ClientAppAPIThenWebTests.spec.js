@@ -12,7 +12,7 @@ test.beforeAll(async () => {
     response = await apiUtility.createOrder(orderPayload);
 })
 
-test("Place an order", async ({ page }) => {
+test(`@APITests Place an order`, async ({ page }) => {
     await page.addInitScript(value => {
         window.localStorage.setItem('token', value)
     }, response.token);

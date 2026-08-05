@@ -7,7 +7,7 @@ export default defineConfig({
   expect: {
     timeout: 40 * 1000
   },
-  reporter: 'html',
+  reporter: [['html', { open: 'never' }], ['line'], ['allure-playwright']],
   //projects can be used to define multiple browsers execution 
   // we can even use --projects and mention the name and execute 
   // -> npx playwright test --config=playwrightConfigLearning.config.js --project=safari

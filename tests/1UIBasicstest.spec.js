@@ -52,7 +52,6 @@ test("Learn UI Controls", async ({page}) => {
 
     //Checkbox
     const termsAndConditionsCheckBoxLocator = page.locator("input#terms");
-    await page.pause();
 })
 
 test("ChildWindow Handling", async ({browser}) => {

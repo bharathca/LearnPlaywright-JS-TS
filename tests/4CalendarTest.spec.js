@@ -1,7 +1,7 @@
-const {test, expect} = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
-
-test("Learn Calendar", async ({page}) => {
+//npx playwright test --grep @Web
+test(`@Web Learn Calendar`, async ({ page }) => {
     const year = "2028";
     const month = "4";
     const date = "11";
@@ -10,17 +10,13 @@ test("Learn Calendar", async ({page}) => {
     await page.locator(".react-date-picker__calendar-button").click();
     await page.locator("button.react-calendar__navigation__label").click();
     await page.locator("button.react-calendar__navigation__label").click();
-    await page.getByRole('button',{name:year}).click();
-    await page.locator(".react-calendar__year-view__months__month").nth(Number(month)-1).click();
-    await page.locator("//abbr[text() = '"+date+"']").click();
+    await page.getByRole('button', { name: year }).click();
+    await page.locator(".react-calendar__year-view__months__month").nth(Number(month) - 1).click();
+    await page.locator("//abbr[text() = '" + date + "']").click();
+    const dateFieldList = await page.locator(".react-date-picker__inputGroup input[data-input='true']");
 
-    const dateFieldList = await page.locator(".react-date-picker__inputGroup input");
-    console.log(await dateFieldList.count())
-
-    for(let i = 0; i< await dateFieldList.count();i++) {
-        console.log(await dateFieldList.nth(i).inputValue())
+    for (let i = 0; i < await dateFieldList.count(); i++) {
         const eachDateField = await dateFieldList.nth(i).inputValue();
-        console.log(eachDateField +" and "+ expectedDate[i])
         expect(eachDateField).toEqual(expectedDate[i]);
     }
 
