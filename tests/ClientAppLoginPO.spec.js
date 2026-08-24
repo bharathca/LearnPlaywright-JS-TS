@@ -9,6 +9,7 @@ for (const data of testData)
         const userName = data.userName;
         const password = data.password
         const productToChoose = data.productToChoose;
+        
 
         const poManager = new POManager(page);
         const loginPage = poManager.getLoginPage();
@@ -50,7 +51,7 @@ for (const data of testData)
         const thankYouPage = poManager.getThankYouPage();
         const thankYouText = await thankYouPage.getThankYouText();
 
-        await expect(thankYouText).toEqual(data.thankYouText);
+        await expect(thankYouText.trim()).toEqual(data.thankYouText);
         const actualOrderID = await thankYouPage.getOrderID();
         await thankYouPage.goToOrdersPage();
 

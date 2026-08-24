@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("clientApplication", async ({ browser }) => {
+test("@APITests clientApplication", async ({ browser }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     const email = "dhamaka@gmail.com";

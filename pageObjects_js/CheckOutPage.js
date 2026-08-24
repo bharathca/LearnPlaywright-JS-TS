@@ -24,7 +24,7 @@ class CheckOutPage {
         const count = await this.listOfCountries.locator('button').count();
         for (let i = 0; i < count; i++) {
             const countryText = await this.listOfCountries.locator('button').nth(i).textContent();
-            if (countryText === country) {
+            if (countryText.trim() === country) {
                 await this.listOfCountries.locator('button').nth(i).click();
                 break;
             }
