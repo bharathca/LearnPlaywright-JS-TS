@@ -1,5 +1,6 @@
 class CheckOutPage {
     constructor(page) {
+        //github action check command
         this.page = page;
         this.paymentMethodInPage = page.locator(".payment__types .payment__type");
         this.emailAddress = page.locator(".user__name input[type = 'text']");
