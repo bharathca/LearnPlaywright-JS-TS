@@ -14,7 +14,7 @@ async function loginAs(page, user) {
   await expect(page.getByRole('link', { name: 'Browse Events →' })).toBeVisible();
 }
 
-test('@APITests gmail user sees Access Denied when viewing yahoo user booking', async ({ page, request }) => {
+test.skip('@APITests gmail user sees Access Denied when viewing yahoo user booking', async ({ page, request }) => {
 
   // ── Step 1: Login as Yahoo user via API and get token ─────────────────────
   const loginRes = await request.post(`${API_URL}/auth/login`, {

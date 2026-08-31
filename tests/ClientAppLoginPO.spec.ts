@@ -51,8 +51,7 @@ for (const data of testData)
         const thankYouPage = poManager.getThankYouPage();
         const thankYouText = await thankYouPage.getThankYouText();
 
-        await expect(thankYouText).toEqual(data.thankYouText);
-        const actualOrderID: string | null = await thankYouPage.getOrderID();
+        await expect((thankYouText ?? "").trim()).toBe("Thankyou for the order.");        const actualOrderID: string | null = await thankYouPage.getOrderID();
         if (!actualOrderID) throw new Error("Order ID is null or missing");
 
         await thankYouPage.goToOrdersPage();

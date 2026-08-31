@@ -13,7 +13,7 @@ test.beforeAll(async () => {
     response = await apiUtility.createOrder(orderPayload);
 })
 
-test(`@APITests Place an order`, async ({ page }) => { 
+test(`@APITests Place an order`, async ({ page }) => {
     await page.addInitScript(value => {
         window.localStorage.setItem('token', value)
     }, response.token);
@@ -37,7 +37,7 @@ test(`@APITests Place an order`, async ({ page }) => {
 })
 
 test('@QW Security test request intercept', async ({ page }) => {
- 
+
     //login and reach orders page
     await page.goto("https://rahulshettyacademy.com/client");
     await page.locator("#userEmail").fill("MangoMasala@gmail.com");
@@ -45,32 +45,30 @@ test('@QW Security test request intercept', async ({ page }) => {
     await page.locator("[value='Login']").click();
     await page.waitForLoadState('networkidle');
     await page.locator(".card-body b").first().waitFor();
- 
+
     await page.locator("button[routerlink*='myorders']").click();
     await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-details?id=*",
         route => route.continue({ url: 'https://rahulshettyacademy.com/api/ecom/order/get-orders-details?id=621661f884b053f6765465b6' }))
-    await page.pause();
-        await page.locator("button:has-text('View')").first().click();
+    await page.locator("button:has-text('View')").first().click();
 
     await expect(page.locator("p").last()).toHaveText("You are not authorize to view this order");
- })
+})
 
- test.only('Browser ', async ({ page }) => {
-    
+test('Browser ', async ({ page }) => {
+
     await page.goto("https://rahulshettyacademy.com/client");
     await page.locator("#userEmail").fill("MangoMasala@gmail.com");
-    
+
     await page.locator("#userPassword").fill("MangoMasala@123");
     await page.route('**/*.{jpeg}', route => route.abort());
     await page.locator("[value='Login']").click();
     await page.waitForLoadState('networkidle');
     await page.locator(".card-body b").first().waitFor();
- 
+
     await page.locator("button[routerlink*='myorders']").click();
     await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-details?id=*",
         route => route.continue({ url: 'https://rahulshettyacademy.com/api/ecom/order/get-orders-details?id=621661f884b053f6765465b6' }))
-    await page.pause();
-        await page.locator("button:has-text('View')").first().click();
+    await page.locator("button:has-text('View')").first().click();
 
-   // await expect(page.locator("p").last()).toHaveText("You are not authorize to view this order");
- })
+    // await expect(page.locator("p").last()).toHaveText("You are not authorize to view this order");
+})

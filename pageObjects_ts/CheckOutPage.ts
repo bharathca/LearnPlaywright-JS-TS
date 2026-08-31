@@ -46,12 +46,12 @@ export class CheckOutPage {
         return await this.emailAddress.inputValue();
     }
     async selectCountryFromDropDown(countryInSequence: string, country: string) {
-        await this.selectCountry.pressSequentially(countryInSequence, { delay: 150 });
+        await this.selectCountry.pressSequentially(countryInSequence, { delay: 200 });
         await this.listOfCountries.waitFor();
         const count = await this.listOfCountries.locator('button').count();
         for (let i = 0; i < count; i++) {
             const countryText = await this.listOfCountries.locator('button').nth(i).textContent();
-            if (countryText === country) {
+            if ((countryText ?? "").trim() === country) {
                 await this.listOfCountries.locator('button').nth(i).click();
                 break;
             }
@@ -74,7 +74,7 @@ export class CheckOutPage {
     async getCouponAppliedConfirmationText(): Promise<string | null> {
         return await this.couponAppliedConfirmation.textContent();
     }
-    
+
 
     async getCurrentPaymentMethods(): Promise<Array<string>> {
         return await this.paymentMethodInPage.allTextContents();

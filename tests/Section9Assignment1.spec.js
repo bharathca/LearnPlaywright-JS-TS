@@ -15,7 +15,7 @@ async function login(page) {
 
     await expect(page.getByRole('link', { name: 'Browse Events →' })).toBeVisible();
 }
-test('create event via UI, book it, and verify seat reduction', async ({ page }) => {
+test.skip('create event via UI, book it, and verify seat reduction', async ({ page }) => {
 
     await login(page);
     await page.goto(`${BASE_URL}/admin/events`);

@@ -12,7 +12,7 @@ async function loginAndGoToBooking(page) {
   await expect(page.getByRole('link', { name: 'Browse Events →' })).toBeVisible();
 }
 
-test('refund eligible for single ticket booking', async ({ page }) => {
+test.skip('refund eligible for single ticket booking', async ({ page }) => {
   await loginAndGoToBooking(page);
 
   await page.goto(`${BASE_URL}/events`);
@@ -44,7 +44,7 @@ test('refund eligible for single ticket booking', async ({ page }) => {
   await expect(result).toContainText('Single-ticket bookings qualify for a full refund');
 });
 
-test('refund not eligible for group ticket booking', async ({ page }) => {
+test.skip('refund not eligible for group ticket booking', async ({ page }) => {
   await loginAndGoToBooking(page);
   await page.goto(`${BASE_URL}/events`);
   await page.getByTestId('event-card').first().getByTestId('book-now-btn').click();

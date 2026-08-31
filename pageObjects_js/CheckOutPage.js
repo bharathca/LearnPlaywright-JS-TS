@@ -19,7 +19,7 @@ class CheckOutPage {
         return await this.emailAddress.inputValue();
     }
     async selectCountryFromDropDown(countryInSequence, country) {
-        await this.selectCountry.pressSequentially(countryInSequence, { delay: 150 });
+        await this.selectCountry.pressSequentially(countryInSequence, { delay: 200 });
         await this.listOfCountries.waitFor();
         const count = await this.listOfCountries.locator('button').count();
         for (let i = 0; i < count; i++) {
